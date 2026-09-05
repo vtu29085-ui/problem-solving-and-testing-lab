@@ -1,0 +1,58 @@
+Sometimes it's better to use dynamic size arrays. Java's Arraylist can provide you this feature. Try to solve this problem using Arraylist.
+
+You are given  lines. In each line there are zero or more integers. You need to answer a few queries where you need to tell the number located in  position of  line.
+
+Take your input from System.in.
+
+Input Format
+The first line has an integer . In each of the next  lines there will be an integer  denoting number of integers on that line and then there will be  space-separated integers. In the next line there will be an integer  denoting number of queries. Each query will consist of two integers x and y .
+
+solution:
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // Number of lines
+        int n = sc.nextInt();
+
+        // ArrayList containing ArrayLists
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+
+        // Read each line
+        for (int i = 0; i < n; i++) {
+
+            int size = sc.nextInt();
+
+            ArrayList<Integer> numbers = new ArrayList<>();
+
+            for (int j = 0; j < size; j++) {
+                numbers.add(sc.nextInt());
+            }
+
+            list.add(numbers);
+        }
+
+        // Number of queries
+        int q = sc.nextInt();
+
+        // Process queries
+        for (int i = 0; i < q; i++) {
+
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+
+            try {
+                // x and y are 1-based indexes
+                System.out.println(list.get(x - 1).get(y - 1));
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("ERROR!");
+            }
+        }
+
+        sc.close();
+    }
+}
