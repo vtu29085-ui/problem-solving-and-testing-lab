@@ -1,0 +1,85 @@
+We define subsequence as any subset of an array. We define a subarray as a contiguous subsequence in an array.
+
+Given an array, find the maximum possible sum among:
+
+all nonempty subarrays.
+all nonempty subsequences.
+Print the two values as space-separated integers on one line.
+
+Note that empty subarrays/subsequences should not be considered.
+
+Example
+
+The maximum subarray sum is comprised of elements at inidices . Their sum is . The maximum subsequence sum is comprised of elements at indices  and their sum is .
+
+Function Description
+
+Complete the maxSubarray function in the editor below.
+
+maxSubarray has the following parameter(s):
+
+int arr[n]: an array of integers
+Returns
+
+int[2]: the maximum subarray and subsequence sums  
+
+solution:
+import java.util.*;
+
+public class Solution {
+
+    public static int[] maxSubarray(int[] arr) {
+
+        // Maximum subarray sum
+        int currentSum = arr[0];
+        int maxSubarray = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            currentSum = Math.max(arr[i], currentSum + arr[i]);
+            maxSubarray = Math.max(maxSubarray, currentSum);
+        }
+
+        // Maximum subsequence sum
+        int maxSubsequence = 0;
+        int maxElement = arr[0];
+
+        for (int num : arr) {
+            if (num > 0) {
+                maxSubsequence += num;
+            }
+
+            maxElement = Math.max(maxElement, num);
+        }
+
+        // If all elements are negative,
+        // choose the largest (least negative) element
+        if (maxSubsequence == 0) {
+            maxSubsequence = maxElement;
+        }
+
+        return new int[]{maxSubarray, maxSubsequence};
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                arr[i] = sc.nextInt();
+            }
+
+            int[] result = maxSubarray(arr);
+
+            System.out.println(result[0] + " " + result[1]);
+        }
+
+        sc.close();
+    }
+}
