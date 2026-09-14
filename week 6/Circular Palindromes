@@ -1,0 +1,64 @@
+A palindrome is a string that reads the same from left to right as it does from right to left.
+
+Given a string, , of  lowercase English letters, we define a -length rotation as cutting the first  characters from the beginning of  and appending them to the end of . For each , there are  possible -length rotations (where ). See the Explanation section for examples.
+
+Given  and , find all  -length rotations of ; for each rotated string, , print the maximum possible length of any palindromic substring of  on a new line.
+
+solution:
+
+import java.util.*;
+
+class Solution {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        String s = sc.next();
+
+        for (int rotation = 0; rotation < n; rotation++) {
+
+            // Create the rotated string
+            String rotated = s.substring(rotation) + s.substring(0, rotation);
+
+            // Find longest palindrome
+            int maxLength = longestPalindrome(rotated);
+
+            System.out.println(maxLength);
+        }
+
+        sc.close();
+    }
+
+    public static int longestPalindrome(String s) {
+
+        int maxLength = 1;
+
+        for (int i = 0; i < s.length(); i++) {
+
+            // Odd length palindrome
+            int len1 = expand(s, i, i);
+
+            // Even length palindrome
+            int len2 = expand(s, i, i + 1);
+
+            maxLength = Math.max(maxLength, Math.max(len1, len2));
+        }
+
+        return maxLength;
+    }
+
+    public static int expand(String s, int left, int right) {
+
+        while (left >= 0 &&
+               right < s.length() &&
+               s.charAt(left) == s.charAt(right)) {
+
+            left--;
+            right++;
+        }
+
+        return right - left - 1;
+    }
+}
