@@ -1,0 +1,37 @@
+Given a text string of length n and a pattern of length m, find all starting indices where the pattern occurs in the text.
+Note: You may assume that n>m.
+
+solution:
+import java.util.*;
+
+class Solution {
+
+    public static List<Integer> findPattern(String text, String pattern) {
+
+        List<Integer> result = new ArrayList<>();
+
+        int n = text.length();
+        int m = pattern.length();
+
+        for (int i = 0; i <= n - m; i++) {
+
+            String part = text.substring(i, i + m);
+
+            if (part.equals(pattern)) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+
+        String text = "AABAACAADAABAABA";
+        String pattern = "AABA";
+
+        List<Integer> result = findPattern(text, pattern);
+
+        System.out.println(result);
+    }
+}
