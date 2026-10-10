@@ -1,0 +1,39 @@
+HackerLand University has the following grading policy:
+
+Every student receives a  in the inclusive range from  to .
+Any  less than  is a failing grade.
+Sam is a professor at the university and likes to round each student's  according to these rules:
+
+If the difference between the  and the next multiple of  is less than , round  up to the next multiple of .
+If the value of  is less than , no rounding occurs as the result will still be a failing grade.
+
+
+
+solution:
+
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            int grade = sc.nextInt();
+
+            if (grade >= 38) {
+                int nextMultiple = ((grade / 5) + 1) * 5;
+
+                if (nextMultiple - grade < 3) {
+                    grade = nextMultiple;
+                }
+            }
+
+            System.out.println(grade);
+        }
+
+        sc.close();
+    }
+}
